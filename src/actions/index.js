@@ -41,7 +41,15 @@ const updateOrderPrice = () => {
   };
 };
 
-const fetchBooks = (bookstoreService, dispatch) => () => {
+const fetchBooksold = (bookstoreService, dispatch) => () => {
+  dispatch(booksRequested());
+  bookstoreService
+    .getBooks()
+    .then(data => dispatch(booksLoaded(data)))
+    .catch(err => dispatch(booksError(err)));
+};
+
+const fetchBooks = bookstoreService => () => dispatch => {
   dispatch(booksRequested());
   bookstoreService
     .getBooks()
